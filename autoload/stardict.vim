@@ -74,6 +74,7 @@ function! stardict#StarDict(...)
     silent exec "1,$d"
     setlocal buftype=nofile bufhidden=hide noswapfile readonly filetype=stardict
     setlocal number relativenumber nobuflisted
+    let l:expl = substitute(l:expl, '\r', '',  'g')
     silent! 1s/^/\=l:expl/
     1
 endfunction
