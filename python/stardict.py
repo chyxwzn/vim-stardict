@@ -79,8 +79,9 @@ def getDefinition(argsListList, caller="vim"):
     argsListList[0].insert(0, "sdcv")
     (definition, error) = Popen(processArgsList(argsListList[0]),
             stdout=PIPE).communicate()
-    encoding = locale.getdefaultlocale()[1]
-    definition = formatStr(definition.decode(encoding))
+    definition = formatStr(definition)
+    # encoding = locale.getdefaultlocale()[1]
+    # definition = formatStr(definition.decode(encoding))
 
     if (caller == "bash"):
         stardictResult = "[A-Z].*"

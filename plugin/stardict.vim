@@ -36,6 +36,23 @@ if !exists('g:stardict_split_horizontal')
     let g:stardict_split_horizontal = 1
 endif
 
+if !exists('g:stardict_data_dir')
+    let g:stardict_data_dir = 'dict'
+endif
+
+function! <SID>StartDictSelect()
+    let l:saved_reg = @"
+    execute "normal! vgvy"
+    let l:pattern = escape(@", '\\/.*$^~[]')
+    let l:pattern = substitute(l:pattern, "\n$", "", "")
+    call stardict#StarDict("--data-dir", g:stardict_data_dir, "--utf8-output", l:pattern)
+    let @" = l:saved_reg
+endfunction
+
 " Map :StarDict command to stardict#StarDict() function
-command! -nargs=* StarDict call stardict#StarDict(<f-args>)
-command! -nargs=* StarDictCursor call stardict#StarDict(expand('<cword>'))
+command! -nargs=* StarDict call stardict#StarDict("--data-dir", g:stardict_data_dir, "--utf8-output", <f-args>)
+command! -nargs=* StarDictCursor call stardict#StarDict("--data-dir", g:stardict_data_dir, "--utf8-output", expand('<cword>'))
+command! -range=% -nargs=* StarDictSelect call <SID>StartDictSelect()
+
+nmap <silent><leader>d :StarDictCursor<CR>
+vmap <silent><leader>d :StarDictSelect<CR>
