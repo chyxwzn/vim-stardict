@@ -54,5 +54,5 @@ command! -nargs=* StarDict call stardict#StarDict("--data-dir", g:stardict_data_
 command! -nargs=* StarDictCursor call stardict#StarDict("--data-dir", g:stardict_data_dir, "--utf8-output", expand('<cword>'))
 command! -range=% -nargs=* StarDictSelect call <SID>StartDictSelect()
 
-nmap <silent><leader>d :StarDictCursor<CR>
-vmap <silent><leader>d :StarDictSelect<CR>
+nmap <silent><leader>sd :StarDictCursor<CR>
+vmap <silent><leader>sd :StarDictSelect<CR>
